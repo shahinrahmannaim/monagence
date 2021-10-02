@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+   <div class="jumbotron text-center">
+<h1>Bienvenue sur la home page</h1>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In beatae laboriosam nobis laborum officiis, rerum earum illum error sunt iusto recusandae amet quae! Quod quo expedita provident quae nesciunt alias eos ad explicabo, quam delectus eum corrupti repudiandae modi dolores commodi placeat consequuntur perspiciatis amet. Nisi a quod architecto fuga dolores iure ipsam optio voluptatem odit! Aliquam voluptas et voluptates iste aperiam veniam expedita nostrum officiis eius sunt. Quibusdam nisi, quasi architecto labore hic facilis odio praesentium quos rem dolorem reiciendis dolores ad excepturi sequi quis corrupti sint, veniam aspernatur ipsum in laudantium nihil voluptatem voluptatibus? Odio temporibus qui voluptates!</p>
+</div>
+
+
+<div class="container">
+<h2>les derniers biens</h2>
+   <div class="row flex">
+      {% for property in properties %}
+         <div class="col-3">
+         <div class="card">
+         <div class="card-body">
+               <h5 class="card-title">
+                <a href="{{path('property.show', {id:property.id, slug:property.slug}) }}"> 
+                        {{ property.title}}
+                </a>
+               </h5>
+               <p class="card-test">{{property.city}}({{property.postalCode}})</p>
+               <div class="text-primary"style="font-weight:bold; font-siez:2rem;" >{{property.formattedPrice}} €</div>
+         </div>
+         </div>
+         </div>
+      {% endfor %}
+
+   </div>
+
+</div>
+
+
+
+
+
+{% endblock %}
