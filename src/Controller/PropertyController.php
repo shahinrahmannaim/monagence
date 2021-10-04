@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 use App\Entity\Property;
-use Cocur\Slugify\Slugify;
 use App\Repository\PropertyRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
