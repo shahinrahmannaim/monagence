@@ -45,7 +45,6 @@ class AdminPropertyController extends AbstractController
     /**
      * @Route("/admin/property/create", name="admin.property.new")
      *
-     * @return void
      */
     public function new(Request $request)
     {
@@ -56,6 +55,8 @@ class AdminPropertyController extends AbstractController
           {
             $this->em->persist($property);
             $this->em->flush();
+            $this->addFlash('success','Biens créé avec succés');
+
               return $this->redirectToRoute('admin.property.index');
           }
         return $this->render('admin/property/new.html.twig',[
@@ -65,7 +66,7 @@ class AdminPropertyController extends AbstractController
     }
 
     /**
-     * @Route("/admin/property/{id}", name="admin.property.edit", requirements={"id":"\d+"})
+     * @Route("/admin/property/{id}", name="admin.property.edit",methods="GET|POST", requirements={"id":"\d+"})
      
      */
     public function edit(Property $property, Request $request)
@@ -75,11 +76,27 @@ class AdminPropertyController extends AbstractController
       if($form->isSubmitted() && $form->isValid())
       {
          $this->em->flush();
+         $this->addFlash('success','Biens modifier avec succés');
           return $this->redirectToRoute('admin.property.index');
       }
       return $this->render('admin/property/edit.html.twig',[
           'property'=>$property,
           'form'=> $form->createView()
       ]);
+    }
+
+    /**
+     * @Route("/admin/property/{id}", name="admin.property.delete",methods="DELETE", requirements={"id":"\d+"})
+     */
+    public function delete(Property $property, Request $request)
+    {
+      if($this->isCsrfTokenValid('delete'. $property->getId(),$request->get('_token') ))
+      {
+        $this->em->remove($property);
+        $this->em->flush();
+        $this->addFlash('success','Biens supprimé avec succés');
+
+      }
+      return $this->redirectToRoute('admin.property.index');
     }
 }
