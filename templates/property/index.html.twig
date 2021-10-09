@@ -5,8 +5,38 @@
 {# {% endblock %} #}
 
 {% block body %}
-   <div class="container m-4">
-<h1>Voir tous nos biens</h1>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In beatae laboriosam nobis laborum officiis, rerum earum illum error sunt iusto recusandae amet quae! Quod quo expedita provident quae nesciunt alias eos ad explicabo, quam delectus eum corrupti repudiandae modi dolores commodi placeat consequuntur perspiciatis amet. Nisi a quod architecto fuga dolores iure ipsam optio voluptatem odit! Aliquam voluptas et voluptates iste aperiam veniam expedita nostrum officiis eius sunt. Quibusdam nisi, quasi architecto labore hic facilis odio praesentium quos rem dolorem reiciendis dolores ad excepturi sequi quis corrupti sint, veniam aspernatur ipsum in laudantium nihil voluptatem voluptatibus? Odio temporibus qui voluptates!</p>
+<div class="jumbotron">
+   <div class="container">
+         {{ form_start(form) }}
+         <div class="form-row align-items-end">
+         <div class="col">
+         {{ form_row(form.minSurface) }}
+          </div>
+          <div class="col">
+         {{ form_row(form.maxPrice) }}
+          </div>
+          <div class="col">
+            <div class="form-group">
+         <button class="btn btn-primary">Rechercher</button>
+
+            </div>
+          </div>         
+         </div>
+         {{ form_end(form) }}
+</div>
+</div>
+   <div class="container mt-4">
+      <h1>Voir tous nos biens</h1>
+     <div class="row">
+         {% for property in properties %}
+         <div class="col-md-4">
+         {% include("property/_property.html.twig") %}
+
+         </div>
+         {% endfor %}
+     </div>
+      <div class="pagination">
+           {{knp_pagination_render(properties)}} 
+      </div>
 </div>
 {% endblock %}
