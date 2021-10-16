@@ -60,7 +60,7 @@ class AdminOptionController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Options modifié avec succès');
 
-            return $this->redirectToRoute('admin.option.edit', ['id' => $option->getId()]);
+            return $this->redirectToRoute('admin.option.index', ['id' => $option->getId()]);
         }
 
         return $this->render('admin/option/edit.html.twig', [

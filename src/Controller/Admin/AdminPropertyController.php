@@ -74,6 +74,7 @@ class AdminPropertyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+           
             $this->objectManager->flush();
             $this->addFlash('success', 'Bien modifié avec succès');
             return $this->redirectToRoute('admin.property.index');
