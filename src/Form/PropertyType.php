@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,30 +25,30 @@ class PropertyType extends AbstractType
             ->add('floor')
             ->add('price')
             ->add('heat', ChoiceType::class, [
-                'choices' => $this->getChoices()
+                'choices' => $this->getChoices(),
             ])
             ->add('options', EntityType::class, [
                 'class' => Option::class,
-                'required'=> false,
+                'required' => false,
                 'choice_label' => 'name',
-                'multiple' => true
+                'multiple' => true,
             ])
-            ->add('imageFile', FileType::class,
-            [
-                'required'=> false
+            ->add('imageFile', FileType::class, [
+                'required' => false,
             ])
             ->add('city')
             ->add('address')
             ->add('postal_code')
-            ->add('sold')
-        ;
+            ->add('lat', HiddenType::class)
+            ->add('lng', HiddenType::class)
+            ->add('sold');
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Property::class,
-            'translation_domain' => 'forms'
+            'translation_domain' => 'forms',
         ]);
     }
 
@@ -55,7 +56,7 @@ class PropertyType extends AbstractType
     {
         $choices = Property::HEAT;
         $output = [];
-        foreach($choices as $k => $v) {
+        foreach ($choices as $k => $v) {
             $output[$v] = $k;
         }
         return $output;

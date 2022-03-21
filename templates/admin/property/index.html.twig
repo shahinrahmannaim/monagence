@@ -1,11 +1,16 @@
-{% extends 'base.html.twig' %}
+{% extends 'adminbase.html.twig' %}
 
 {% block title 'Gérer les biens' %}
 
 {% block body %}
   
-<div class="container mt-4">
-<h1>Gérer les biens</h1>
+<div class="content-wrapper ">
+    <h1  class="text-primary"  >Gérer les biens</h1>
+    <div class="text-rigt ">
+        <a href="{{path('admin.property.new')}}" class="btn btn-primary" >
+            Créer un nouveau biens
+        </a>
+    </div>
     {% for messsage in app.flashes('success') %}
         <div class="alert alert-success"> {{messsage}} </div>
     {% endfor %}
@@ -24,7 +29,7 @@
                     <form style="display:inline-block" method="POST" action="{{path('admin.property.delete', {id:property.id}) }}" onsubmit="return confirm('Etre vous vraiment sur ?')" >
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="_token" value="{{csrf_token('delete' ~ property.id) }}">
-                    <button class="btn btn-danger">Suprprimer</button>
+                    <button class="btn btn-danger">Supprimer</button>
                     </form>
                 </td>    
             </tr>
@@ -32,11 +37,7 @@
         </tbody>
         
     </table>
-    <div class="text-rigt">
-        <a href="{{path('admin.property.new')}}" class="btn btn-primary" >
-            Créer un nouveau biens
-        </a>
-    </div>
+    
 
 
 </div>

@@ -18,10 +18,7 @@ class Contact
     private $lastname;
 
     /**
-     * @var string|null
-     * @Assert\notBlank
-     * @Assert\Regex(pattern="/[0-9]{10}/")
-     *      
+     * @var string|null  
      * */
     private $phone;
 

@@ -1,0 +1,17 @@
+<div class="span3">
+    <aside>
+        <div class="widget">
+
+            <h4 class="rheading">User Menu<span></span></h4>
+            <img src="{{ asset('uploads' ~ app.user.image) }}"  style="height: 80px; width: 80px;" class="img-circle">
+            {{ app.user.name }} {{ app.user.surname }}
+            <ul class="cat">
+                <li><a href="/user">My Profile</a></li>
+                <li><a href="/user/hotel">My Property</a></li>
+                <li><a href="/user/comments">My Comments</a></li>
+                <li><a href="{{path('calendar_index')}} ">My Appointment</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </aside>
+</div>

@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'fr'
+    images_directory: '%kernel.project_dir%/public/uploads/images'
+    files_directory: '%kernel.project_dir%/public/uploads/files'
 
 services:
     # default configuration for services in *this* file
@@ -32,3 +34,14 @@ services:
     App\Listener\ImageCacheSubscriber:
         tags:
         - { name: doctrine.event_subscriber }
+
+
+        # This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+
+   
+
+   

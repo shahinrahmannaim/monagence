@@ -1,0 +1,80 @@
+
+<!-- Header Starts -->
+<div class="navbar-wrapper">
+
+        <div class="navbar-inverse" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+
+
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+            </div>
+
+
+            <!-- Nav Starts -->
+            <div class="navbar-collapse  collapse">
+              <ul class="nav navbar-nav navbar-right">
+               <li class="active"><a href="{{ path('home') }}">Accueil</a></li>
+                <li><a href="{{path('about')}}">À propos de nous</a></li>
+                  {% if app.user %}
+                <li><a href="{{path('agent_user_index')}}">Agent</a></li>   
+                  {% else %}  
+                <li><a href="/loginuser">Agent</a></li>   
+                {% endif %}
+                <li><a href="{{path('blogs')}}">Blog</a></li>
+                <li><a href="{{path('contacts')}}">Contact</a></li>
+                  {% if app.user %}
+                  <li>
+                    <a href="/user"><img src="{{ asset('uploads' ~ app.user.image) }}" style="height: 28px" >
+                        </a>
+
+                    </li>
+                    <li>
+                    <a href="{{path('user_index') }} ">{{ app.user.name }}  {{ app.user.surname }}</a>
+                   </li>
+
+
+                                    <li><a href="/logout">Se deconecte</a></li>
+                                {% else %}
+                                    <li>
+                                        <a href="/loginuser"><i class="icon-envelope-alt"></i> connexion</a>
+                                    </li> <li>
+                                        <a href="/register"><i class="icon-envelope-alt"></i>S'inscrire</a>
+                                    </li>
+                                {% endif %}
+
+
+              </ul>
+            </div>
+            <!-- #Nav Ends -->
+
+          </div>
+        </div>
+
+    </div>
+<!-- #Header Starts -->
+
+
+
+
+
+<div class="container">
+
+<!-- Header Starts -->
+<div class="header">
+<a href="{{path('home')}} "><img src="{{asset('assets')}}/images/logo.png" alt="Realestate"></a>
+
+              <ul class="pull-right">
+                <li><a class="nav-link {% if current_menu is defined and current_menu == 'properties' %}active{% endif %}" href="{{ path('property.index') }}">Acheter</a></li>
+                <li><a class="nav-link {% if current_menu is defined and current_menu == 'properties' %}active{% endif %}" href="{{ path('property.index') }}">Vendre</a></a></li>         
+                <li><a class="nav-link {% if current_menu is defined and current_menu == 'properties' %}active{% endif %}" href="{{ path('property.index') }}">Louer</a></li>
+              </ul>
+</div>
+<!-- #Header Starts -->
+</div>

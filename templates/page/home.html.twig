@@ -1,9 +1,80 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'Agence lorem ipsum' %}
+{% block title 'MonAgence' %}
 
 {% block body %}
-  <div class="jumbotron text-center">
+
+{% block slider %} {% include('slider/slider.html.twig') %} {% endblock %}
+
+<div class="banner-search">
+  <div class="container"> 
+    <!-- banner -->
+    <h3>Acheter, Vender & Louer</h3>
+    <div class="searchbar">
+      <div class="row">
+        <div class="col-lg-6 col-sm-6">
+          <input type="text" class="form-control" placeholder="Recherche de propriétés">
+          <div class="row">
+            <div class="col-lg-3 col-sm-3 ">
+              <select class="form-control">
+                <option>Acheter</option>
+                <option>Vender</option>
+                <option>Louer</option>
+              </select>
+            </div>
+            <div class="col-lg-3 col-sm-4">
+              <select class="form-control">
+                <option>Prix</option>
+                <option>€150,000 - €200,000</option>
+                <option>€200,000 - €250,000</option>
+                <option>€250,000 - €300,000</option>
+                <option>€300,000 - au dessus</option>
+              </select>
+            </div>
+            <div class="col-lg-3 col-sm-4">
+            <select class="form-control">
+                <option>Propriété</option>
+                <option>Appartement</option>
+                <option>Immeuble</option>
+                <option>Espace de bureau</option>
+              </select>
+              </div>
+              <div class="col-lg-3 col-sm-4">
+              <button class="btn btn-success"  onclick="window.location.href='{{path("property.index")}}'">Trouve maint.</button>
+              </div>
+          </div>
+          
+          
+        </div>
+        <div class="col-lg-5 col-lg-offset-1 col-sm-6 ">
+          <p>Inscrivez-vous maintenant et soyez mis à jour avec toutes les offres de propriétés.</p>
+          <button class="btn btn-info"   data-toggle="modal" data-target="#loginpop">Connexion</button>        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- banner -->
+<div class="container">
+    <div class="row">
+      <div class="col-4">
+    <div class="properties-listing spacer"> <a href="buysalerent.php" class="pull-right viewall">Voir la dernière annonce</a>
+  <h2>Propriétés en vedette</h2>
+  <div id="owl-example" class="owl-carousel">
+  {% for property in properties %}
+  {# <div class="col-md-4"> #} 
+    {% include 'property/_property.html.twig' %}
+  {# </div> #}
+  {% endfor %}
+    </div>
+  </div>
+
+  </div>
+  
+
+
+
+{% endblock %}
+  {# <div class="jumbotron text-center">
     <h1>Agence lorem ipsum</h1>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda aut cumque dolore error expedita itaque iure iusto magni, molestiae numquam omnis provident quae repellat sint soluta tempora unde voluptate voluptatibus.</p>
   </div>
@@ -25,5 +96,7 @@
         </div>
       {% endfor %}
     </div>
-  </div>
-{% endblock %}
+  </div> #}
+
+  
+

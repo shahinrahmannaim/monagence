@@ -15,7 +15,7 @@
       {% if not form.vars.valid %}
         <div class="alert alert-danger">
         Erruer!!
-        Le champ doit être rempli correctementuoi!
+        Le champ doit être rempli correctement!
         </div>
       {% endif %}
 
@@ -31,8 +31,12 @@
           <h1>{{ property.title }}</h1>
           <h2>{{ property.rooms }} pièces - {{ property.surface }} m²</h2>
           <div class="text-primary" style="font-size: 4rem;font-weight: bold;">{{ property.formattedPrice }} €</div>
-          <a href="#" class="btn btn-primary">Contacter l'agence</a>
-          <div id="contactForm" class="mt-4">
+          <a href="#"  id="contactButton" {% if  form.vars.submitted %}
+            style="display:none;"
+          {% endif %} class="btn btn-primary">Contacter l'agence</a>
+          <div id="contactForm" {% if not form.vars.submitted %}
+            style="display:none;"
+          {% endif %} class="mt-4">
             {{ form_start(form) }}
             <div class="row">
               <div class="col">{{ form_row(form.firstname) }}</div>
@@ -92,6 +96,10 @@
         </ul>
       </div>
     </div>
+</div>
+    </div>
   </div>
+<div id="map" style="width: 100%; height: 400px" data-lat="{{ property.lat }}" data-lng="{{ property.lng }}"></div>
+
 {% endblock %}
 

@@ -19,10 +19,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Property
 {
-
     const HEAT = [
         0 => 'Electrique',
-        1 => 'Gaz'
+        1 => 'Gaz',
     ];
 
     /**
@@ -110,20 +109,30 @@ class Property
      */
     private $sold = false;
 
-    // /**
-    //  * @ORM\Column(type="datetime")
-    //  */
-    // private $created_at;
-
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Option", inversedBy="properties")
      */
     private $options;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $updated_at;
+    private $Created_at;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $Updated_at;
+
+    /**
+     * @ORM\Column(type="float",scale=4, precision=6)
+     */
+    private $lat;
+
+    /**
+     * @ORM\Column(type="float",scale=4, precision=7)
+     */
+    private $lng;
 
     public function __construct()
     {
@@ -368,8 +377,7 @@ class Property
     public function setImageFile(?File $imageFile): Property
     {
         $this->imageFile = $imageFile;
-        if ($this->imageFile instanceof UploadedFile) 
-        {
+        if ($this->imageFile instanceof UploadedFile) {
             $this->updated_at = new \DateTime('now');
         }
         return $this;
@@ -387,4 +395,27 @@ class Property
         return $this;
     }
 
+    public function getLat(): ?float
+    {
+        return $this->lat;
+    }
+
+    public function setLat(float $lat): self
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getLng(): ?float
+    {
+        return $this->lng;
+    }
+
+    public function setLng(float $lng): self
+    {
+        $this->lng = $lng;
+
+        return $this;
+    }
 }

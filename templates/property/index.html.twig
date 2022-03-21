@@ -1,45 +1,170 @@
-{% extends "base.html.twig" %}
-   
-{% block title 'tous nos bien' %}
+{% extends 'base.html.twig' %}
 
-{# {% endblock %} #}
+{% block title 'Tous nos bien' %}
+
+
+
+
 
 {% block body %}
-<div class="jumbotron">
-   <div class="container">
-         {{ form_start(form) }}
-         <div class="form-row align-items-end">
-         <div class="col">
-         {{ form_row(form.minSurface) }}
-          </div>
-          <div class="col">
-         {{ form_row(form.maxPrice) }}
-          </div>
-          <div class="col">
-         {{ form_row(form.options) }}
-          </div>
-          <div class="col">
-            <div class="form-group">
-         <button class="btn btn-primary">Rechercher</button>
 
-            </div>
-          </div>         
-         </div>
-         {{ form_end(form) }}
+
+{# <div class="inside-banner">
+  <div class="container"> 
+    <span class="pull-right"><a href="{{ path('home') }}">Home</a> / Acheter, Vendre & Louer</span>
+    <h2>Acheter, Vendre & Louer</h2>
 </div>
 </div>
-   <div class="container mt-4">
-      <h1>Voir tous nos biens</h1>
-     <div class="row">
-         {% for property in properties %}
-         <div class="col-md-4">
-         {% include("property/_property.html.twig") %}
+<!-- banner -->
 
-         </div>
-         {% endfor %}
-     </div>
-      <div class="pagination">
-           {{knp_pagination_render(properties)}} 
+
+<div class="container">
+<div class="properties-listing spacer">
+
+<div class="row">
+<div class="col-lg-3 col-sm-4 ">
+
+  <div class="search-form"><h4><span class="glyphicon glyphicon-search"></span> Search for</h4>
+    <input type="text" class="form-control" placeholder="Search of Properties">
+    <div class="row">
+  {{ form_start(form) }}
+  <div class="form-row align-items-end">
+    <div class="col">
+      {{ form_row(form.minSurface) }}
+    </div>
+    <div class="col">
+      {{ form_row(form.maxPrice) }}
+    </div>
+    <div class="col">
+      {# option{{ form_row(form.options) }} #}
+    {# </div>
+    <div class="col">
+      <div class="form-group">
+        <button class="btn btn-primary">Rechercher</button>
       </div>
+    </div>
+  </div>
+  {{ form_end(form) }}
 </div>
+</div>
+
+
+ <div class="hot-properties hidden-xs">
+<h4>Hot Properties</h4>
+ 
+ {% set break = false %}
+  {% for index,property in properties  %}
+             {% if index==3    %}
+             <div class="row">
+                <div class="col-lg-4 col-sm-5"> <img src="{{ vich_uploader_asset(property, 'imageFile') }}" alt="" class="img-responsive img-circle" alt="properties">
+              </div>
+                <div class="col-lg-8 col-sm-7">
+                  <h5><a href="property-detail.php">{{ property.city }}</a></h5>
+                  <p class="price">{{ property.price }}</p> </div>
+              </div>
+            </div> 
+              {%  set break = true %}
+            {% endif %}
+
+ {% endfor %}             
+
+
+
+</div>
+
+<div class="col-lg-9 col-sm-8">
+<div class="sortby clearfix">
+<div class="pull-left result">Showing: 12 of 100 </div>
+  <div class="pull-right">
+  <select class="form-control">
+  <option>Sort by</option>
+  <option>Price: Low to High</option>
+  <option>Price: High to Low</option>
+</select></div>
+
+</div> #}
+{# <div class="row"> #}
+ {# <div class="col"> #}
+  {# {% for property in properties %}
+    <div class="col-md-4">
+      {% include 'property/_property.html.twig' %}
+    </div>
+  {% endfor %}
+{# </div> #}
+
+{# <div class="pagination">
+  {{ knp_pagination_render(properties) }}
+</div>
+</div>  #} 
+ <!-- properties -->
+
+      {# <div class="center">
+<ul class="pagination">
+          <li><a href="#">«</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li><a href="#">»</a></li>
+        </ul>
+</div> #}
+
+{# </div>
+</div>
+</div>
+</div>
+</div>#}
+<div class="inside-banner">
+<div class="container"> 
+  <span class="pull-right"><a href="{{ path('home') }}">Home</a> / Acheter, Vendre & Louer</span>
+  <h2>Acheter, Vendre & Louer</h2>
+</div>
+</div>
+  <div class="jumbotron">
+    <div class="container">
+    {{ form_start(form) }}
+   <div class="form-row">
+    <div class="col">
+      {{ form_row(form.minSurface) }}
+    </div>
+    <div class="col">
+      {{ form_row(form.maxPrice) }}
+    </div>
+    <div class="col">
+      {{ form_row(form.options) }}
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <button class="btn btn-primary">Rechercher</button>
+        </div>
+      </div>
+    </div>
+    {{ form_end(form) }}
+  </div>
+</div>
+<div class="container mt-4">
+<h1>Voir tous nos biens</h1>
+
+<div class="row">
+  {% for property in properties %}
+    <div class="col-md-4">
+      {% include 'property/_property.html.twig' %}
+    </div>
+  {% endfor %}
+</div>
+
+<div class="pagination">
+  {{ knp_pagination_render(properties) }}
+</div>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+
+
+
+
+
 {% endblock %}

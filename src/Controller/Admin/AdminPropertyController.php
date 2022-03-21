@@ -14,7 +14,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class AdminPropertyController extends AbstractController
 {
-
     /**
      * @var PropertyRepository
      */
@@ -24,20 +23,25 @@ class AdminPropertyController extends AbstractController
      */
     private $objectManager;
 
-    public function __construct(PropertyRepository $repository, EntityManagerInterface $objectManager)
-    {
+    public function __construct(
+        PropertyRepository $repository,
+        EntityManagerInterface $objectManager
+    ) {
         $this->repository = $repository;
         $this->objectManager = $objectManager;
     }
 
     /**
-     * @Route("/admin", name="admin.property.index")
+     * @Route("/admin/property", name="admin.property.index")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index()
     {
         $properties = $this->repository->findAll();
-        return $this->render('admin/property/index.html.twig', compact('properties'));
+        return $this->render(
+            'admin/property/index.html.twig',
+            compact('properties')
+        );
     }
 
     /**
@@ -58,7 +62,7 @@ class AdminPropertyController extends AbstractController
 
         return $this->render('admin/property/new.html.twig', [
             'property' => $property,
-            'form'     => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -74,7 +78,6 @@ class AdminPropertyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-           
             $this->objectManager->flush();
             $this->addFlash('success', 'Bien modifié avec succès');
             return $this->redirectToRoute('admin.property.index');
@@ -82,7 +85,7 @@ class AdminPropertyController extends AbstractController
 
         return $this->render('admin/property/edit.html.twig', [
             'property' => $property,
-            'form'     => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -91,13 +94,18 @@ class AdminPropertyController extends AbstractController
      * @param Property $property
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function delete(Property $property, Request $request) {
-        if ($this->isCsrfTokenValid('delete' . $property->getId(), $request->get('_token'))) {
+    public function delete(Property $property, Request $request)
+    {
+        if (
+            $this->isCsrfTokenValid(
+                'delete' . $property->getId(),
+                $request->get('_token')
+            )
+        ) {
             $this->objectManager->remove($property);
             $this->objectManager->flush();
             $this->addFlash('success', 'Bien supprimé avec succès');
         }
         return $this->redirectToRoute('admin.property.index');
     }
-
 }
