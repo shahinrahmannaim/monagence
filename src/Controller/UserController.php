@@ -62,7 +62,7 @@ class UserController extends AbstractController
                     // ... handle exception if something happens during file upload
                 }
 
-                $user->setImage($fileName); // Related upload file name with Hotel table image field
+                $user->setFilename($fileName); // Related upload file name with Hotel table image field
             }
             //<<<<<<<<<<<<<<<<<******** file upload ***********>
 
@@ -77,7 +77,6 @@ class UserController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-
             return $this->redirectToRoute('user_index');
         }
 
@@ -129,7 +128,7 @@ class UserController extends AbstractController
                     // ... handle exception if something happens during file upload
                 }
 
-                $user->setImage($fileName); // Related upload file name with Hotel table image field
+                $user->setFilename($fileName); // Related upload file name with Hotel table image field
             }
             //<<<<<<<<<<<<<<<<<******** file upload ***********>
             // encode the plain password

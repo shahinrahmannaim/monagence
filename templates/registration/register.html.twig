@@ -1,15 +1,49 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include('admin/head.html.twig') %}
 
-{% block title %}Register{% endblock %}
+</head>
+<body class="hold-transition register-page">
+<div class="register-box col-md-6">
+    <div class="register-logo">
+        <a href="../../index2.html"><b>S'inscrire </b></a>
+    </div>
 
-{% block body %}
-    <h1>Register</h1>
+    <div class="card">
+        <div class="card-body register-card-body">
+            <p class="login-box-msg">Enregistrez une nouvelle adhésion</p>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+            {{ form_start(registrationForm) }}
 
-        <button class="btn">Register</button>
-    {{ form_end(registrationForm) }}
-{% endblock %}
+
+            {{ form_widget(registrationForm) }}
+            <div class="col-md-2">
+                <button class="btn btn-block btn-primary">{{ button_label|default('Save') }}</button>
+            </div>
+            {{ form_end(registrationForm) }}
+
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+</div>
+<!-- /.login-box -->
+
+
+
+<!-- jQuery -->
+<script src="{{ asset('assets') }}/admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('assets') }}/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('assets') }}/admin/dist/js/adminlte.min.js"></script>
+
+
+
+</body>
+</html>

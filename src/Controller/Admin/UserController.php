@@ -20,26 +20,33 @@ class UserController extends AbstractController
     /**
      * @Route("/", name="admin_user_index", methods={"GET"})
      */
-    public function index(UserRepository $userRepository): Response
+    public function new(Request $request,UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        return $this->render('admin/user/index.html.twig', [
-            'users' => $userRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="admin_user_new", methods={"GET","POST"})
-     */
-    public function new(
-        Request $request,
-        UserPasswordEncoderInterface $passwordEncoder
-    ): Response {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            //************** file upload ***>>>>>>>>>>>>
+            /** @var file $file */
+            $file = $form['image']->getData();
+            if ($file) {
+                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+                // Move the file to the directory where brochures are stored
+                try {
+                    $file->move(
+                        $this->getParameter('images_directory'), // in Servis.yaml defined folder for upload images
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $user->setFilename($fileName); // Related upload file name with Hotel table image field
+            }
+            //<<<<<<<<<<<<<<<<<******** file upload ***********>
 
             // encode the plain password
             $user->setPassword(
@@ -49,8 +56,10 @@ class UserController extends AbstractController
                 )
             );
 
+
             $entityManager->persist($user);
             $entityManager->flush();
+
 
             return $this->redirectToRoute('admin_user_index');
         }

@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,7 +24,7 @@ class UserType extends AbstractType
             //  ->add('roles')
             ->add('roles', ChoiceType::class, [
                 'choices' => [
-                    'ADMIN' => 'ROLE_ADMIN',
+                    // 'ADMIN' => 'ROLE_ADMIN',
                     'USER' => 'ROLE_USER'],
             ])
 
@@ -35,11 +36,11 @@ class UserType extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => "Entrer un mot de passe valide s'il vous plait",
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre mot de passe doit comporter au moins {{ limit }} caractères',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
@@ -49,26 +50,26 @@ class UserType extends AbstractType
 
             ->add('name')
             ->add('surname')
-            ->add('phone')
-            ->add('image', FileType::class, [
-                'label' => 'Image',
-                // unmapped means that this field is not associated to any entity property
-                'mapped' => false,
-                // make it optional so you don't have to re-upload the PDF file
-                // everytime you edit the Product details
-                'required' => false,
-                // unmapped fields can't define their validation using annotations
-                // in the associated entity, so you can use the PHP constraint classes
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'image/*', // All image types
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid Image File',
-                    ])
-                ],
-            ])
+            ->add('phone' , NumberType::class, ['required' => false,])
+            // ->add('filename', FileType::class, [
+            //     'label' => 'Image',
+            //     // unmapped means that this field is not associated to any entity property
+            //     'mapped' => false,
+            //     // make it optional so you don't have to re-upload the PDF file
+            //     // everytime you edit the Product details
+            //     'required' => false,
+            //     // unmapped fields can't define their validation using annotations
+            //     // in the associated entity, so you can use the PHP constraint classes
+            //     'constraints' => [
+            //         new File([
+            //             'maxSize' => '1024k',
+            //             'mimeTypes' => [
+            //                 'image/*', // All image types
+            //             ],
+            //             'mimeTypesMessage' => 'Please upload a valid Image File',
+            //         ])
+            //     ],
+            // ])
             ->add('status', ChoiceType::class, [
                 'choices' => [
                     'True' => 'True',

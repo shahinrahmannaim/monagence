@@ -3,7 +3,7 @@
         <div class="widget">
 
             <h4 class="rheading">User Menu<span></span></h4>
-            <img src="{{ asset('uploads' ~ app.user.image) }}"  style="height: 80px; width: 80px;" class="img-circle">
+            <img src="{{asset('images/properties/' ~ app.user.filename) }}"  style="height: 80px; width: 80px;" class="img-circle">
             {{ app.user.name }} {{ app.user.surname }}
             <ul class="cat">
                 <li><a href="/user">My Profile</a></li>

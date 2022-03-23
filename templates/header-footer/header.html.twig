@@ -31,7 +31,7 @@
                 <li><a href="{{path('contacts')}}">Contact</a></li>
                   {% if app.user %}
                   <li>
-                    <a href="/user"><img src="{{ asset('uploads' ~ app.user.image) }}" style="height: 28px" >
+                    <a href="/user"><img src="{{ asset('images/properties/' ~ app.user.filename) }}" style="height: 28px" >
                         </a>
 
                     </li>

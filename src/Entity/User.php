@@ -2,14 +2,19 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\Types\Null_;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 use Symfony\Component\Security\Core\User\UserInterface;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 /**
+ *  
+ * @Vich\Uploadable()
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
@@ -23,7 +28,7 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180,nullable=true, unique=true)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
 
@@ -39,48 +44,39 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="string", length=20, nullable=false)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=false)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $surname;
-    /**
-     * @ORM\Column(type="string", length=20, nullable=false)
-     */
-    private $phone;
+
+    
+       
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=false)
-     */
-    private $image;
-
-    /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="boolean", length=10, nullable=true)
      */
     private $status;
 
     /**
-     * @ORM\Column(type="datetime", nullable=false)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $created_at;
 
     /**
-     * @ORM\OneToMany(targetEntity=Calendar::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $calendars;
+    private $updated_at;
+    /**
+     * @ORM\Column(type="integer", length=11, nullable=true)
+     */
+    private $phone;
 
-    public function __construct()
-    {
-        $this->calendars = new ArrayCollection();
-    }
 
-   
 
-    
-    
 
     public function getId(): ?int
     {
@@ -184,17 +180,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(?string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
+   
 
     public function getStatus(): ?string
     {
@@ -220,7 +206,17 @@ class User implements UserInterface
         return $this;
     }
 
-   
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = new \DateTime("now");
+
+        return $this;
+    }
 
     /**
      * Get the value of phone
@@ -241,37 +237,46 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Calendar[]
-     */
-    public function getCalendars(): Collection
+     * Get the value of filename
+     */ 
+    public function getFilename()
     {
-        return $this->calendars;
+        return $this->filename;
     }
 
-    public function addCalendar(Calendar $calendar): self
+    /**
+     * Set the value of filename
+     *
+     * @return  self
+     */ 
+    public function setFilename($filename)
     {
-        if (!$this->calendars->contains($calendar)) {
-            $this->calendars[] = $calendar;
-            $calendar->setUser($this);
-        }
+        $this->filename = $filename;
 
         return $this;
     }
 
-    public function removeCalendar(Calendar $calendar): self
+    /**
+     * Get mimeTypes="image/jpeg"
+     *
+     * @return  File|null
+     */ 
+    public function getImageFile()
     {
-        if ($this->calendars->removeElement($calendar)) {
-            // set the owning side to null (unless already changed)
-            if ($calendar->getUser() === $this) {
-                $calendar->setUser(Null);
-            }
-        }
+        return $this->imageFile;
+    }
+
+    /**
+     * Set mimeTypes="image/jpeg"
+     *
+     * @param  File|null  $imageFile  mimeTypes="image/jpeg"
+     *
+     * @return  self
+     */ 
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
 
         return $this;
     }
-
-    
-
-   
-
 }
