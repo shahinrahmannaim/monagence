@@ -22,18 +22,24 @@ class AgentController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
-        if ($this->getUser()) {
-            $user = $this->getUser(); // Get login User data
-            if ($user->getRoles()[0] == 'ROLE_ADMIN') {
-                return $this->render('agents/index.html.twig'
+        // if ($this->getUser())
+        // {
+        //     $user = $this->getUser(); // Get login User data
+        //     if ($user->getRoles()[0] == 'ROLE_ADMIN') {
+        //         return $this->render('agents/index.html.twig'
+        //         , [
+        //             'users' => $userRepository->findAll(),
+        //             'roles'=> $userRepository->findAll()
+        //         ]);
+        //     } else {
+        //         return $this->redirectToRoute('home');
+        //     }
+        // }
+        return $this->render('agents/index.html.twig'
                 , [
                     'users' => $userRepository->findAll(),
                     'roles'=> $userRepository->findAll()
                 ]);
-            } else {
-                return $this->redirectToRoute('home');
-            }
-        }
        
     }
 }
